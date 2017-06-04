@@ -1,0 +1,77 @@
+consumes:
+- application/json
+- application/xml
+- application/gob
+- application/x-gob
+definitions:
+  GoaExampleBlog:
+    description: A blog of wine (default view)
+    example:
+      href: Illo recusandae eum iusto.
+      id: 7.772942e+18
+      name: Reiciendis occaecati eos quidem aspernatur.
+    properties:
+      href:
+        description: API href for making requests on the blog
+        example: Illo recusandae eum iusto.
+        type: string
+      id:
+        description: Unique blog ID
+        example: 7.772942e+18
+        format: int64
+        type: integer
+      name:
+        description: Name of wine
+        example: Reiciendis occaecati eos quidem aspernatur.
+        type: string
+    required:
+    - id
+    - href
+    - name
+    title: 'Mediatype identifier: application/vnd.goa.example.blog+json; view=default'
+    type: object
+host: localhost:8080
+info:
+  description: A simple goa service
+  title: The virtual wine cellar
+  version: ""
+paths:
+  /blogs/{blogID}:
+    get:
+      description: Get blog by id
+      operationId: blog#show
+      parameters:
+      - description: Blog ID
+        in: path
+        name: blogID
+        required: true
+        type: integer
+      produces:
+      - application/vnd.goa.example.blog+json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/GoaExampleBlog'
+        "404":
+          description: Not Found
+      schemes:
+      - http
+      summary: show blog
+      tags:
+      - blog
+produces:
+- application/json
+- application/xml
+- application/gob
+- application/x-gob
+responses:
+  NotFound:
+    description: Not Found
+  OK:
+    description: OK
+    schema:
+      $ref: '#/definitions/GoaExampleBlog'
+schemes:
+- http
+swagger: "2.0"
